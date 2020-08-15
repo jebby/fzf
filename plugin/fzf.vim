@@ -370,6 +370,8 @@ endfunction
 
 function! fzf#run(...) abort
 try
+  let scrolloff_orig = &scrolloff
+  set scrolloff=0
   let [shell, shellslash, shellcmdflag, shellxquote] = s:use_sh()
 
   let dict   = exists('a:1') ? copy(a:1) : {}
@@ -435,6 +437,7 @@ try
   return lines
 finally
   let [&shell, &shellslash, &shellcmdflag, &shellxquote] = [shell, shellslash, shellcmdflag, shellxquote]
+  let &scrolloff = scrolloff_orig
 endtry
 endfunction
 
